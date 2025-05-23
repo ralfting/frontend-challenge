@@ -1,20 +1,12 @@
-import Button from "@mui/material/Button";
+import { BrowserRouter, Route, Routes } from "react-router";
+import SignUpForm from "./features/user/SignUpForm";
 
-const App = () => {
+export default function App() {
   return (
-    <div>
-      <header>
-        <h1>Welcome to Upgrade challenge</h1>
-      </header>
-      <p>
-        To get started, edit <code>src/App.jsx</code> and save to reload.
-      </p>
-
-      <Button variant="contained" disabled>
-        Hello
-      </Button>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/*" element={<SignUpForm />} />
+      </Routes>
+    </BrowserRouter>
   );
-};
-
-export default App;
+}
