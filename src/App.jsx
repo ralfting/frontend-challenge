@@ -9,6 +9,8 @@ const App = () => {
       <p>
         To get started, edit <code>src/App.jsx</code> and save to reload.
       </p>
+
+      <button disabled>Hello</button>
     </div>
   );
 };
