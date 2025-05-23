@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import Button from "@mui/material/Button";
 
 const App = () => {
   return (
@@ -10,7 +10,9 @@ const App = () => {
         To get started, edit <code>src/App.jsx</code> and save to reload.
       </p>
 
-      <button disabled>Hello</button>
+      <Button variant="contained" disabled>
+        Hello
+      </Button>
     </div>
   );
 };
