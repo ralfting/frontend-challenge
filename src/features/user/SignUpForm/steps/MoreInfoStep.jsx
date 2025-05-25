@@ -7,8 +7,12 @@ export default function AgreementsStep({ onNavigate }) {
         Aditional info
       </Typography>
 
-      <button onClick={() => onNavigate("/")}>Back</button>
-      <button onClick={() => onNavigate("/confirmation")}>Next</button>
+      <button type="button" onClick={() => onNavigate("/")}>
+        Back
+      </button>
+      <button type="button" onClick={() => onNavigate("/confirmation")}>
+        Next
+      </button>
     </>
   );
 }

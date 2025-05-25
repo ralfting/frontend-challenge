@@ -1,9 +1,10 @@
-import { useNavigate, Route, Routes } from "react-router-dom";
-
-import { useForm, FormProvider } from "react-hook-form";
 import { Box, Card, CardContent } from "@mui/material";
+import { useForm, FormProvider } from "react-hook-form";
+import { useNavigate, Route, Routes } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
 
 import { ConfirmationStep, UserInfoStep, MoreInfoStep } from "./steps";
+import { signupValidation } from "./validations";
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -12,7 +13,11 @@ export default function SignUpForm() {
     navigate(path);
   }
 
-  const methods = useForm();
+  const methods = useForm({
+    resolver: zodResolver(signupValidation),
+    reValidateMode: "onChange",
+    mode: "onChange",
+  });
 
   function handleSubmit() {
     console.log("submitted!");
