@@ -1,3 +1,8 @@
-export default function ReviewStep() {
-  return <p>ReviewStep</p>;
+export default function ReviewStep({ onNavigate }) {
+  return (
+    <>
+      <p>ReviewStep</p>
+      <button onClick={() => onNavigate("/more-info")}>Back</button>
+    </>
+  );
 }

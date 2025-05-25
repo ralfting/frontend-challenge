@@ -1,3 +1,8 @@
-export default function UserInfoStep() {
-  return <p>UserInfoStep</p>;
+export default function UserInfoStep({ onNavigate }) {
+  return (
+    <>
+      <p>UserInfoStep</p>
+      <button onClick={() => onNavigate("more-info")}>Next</button>
+    </>
+  );
 }
