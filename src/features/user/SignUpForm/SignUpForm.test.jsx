@@ -125,4 +125,33 @@ describe("SignUpForm", () => {
       });
     });
   });
+
+  describe("Validations", () => {
+    describe("users details", () => {
+      it("shows message error for user details fields", async () => {
+        renderWithRouter(<SignUpForm />, { route: "/" });
+
+        await userEvent.type(
+          await screen.findByLabelText("First Name"),
+          "A{backspace}"
+        );
+
+        expect(
+          await screen.findByText(/First name must be at least 2 characters/)
+        ).toBeVisible();
+
+        await userEvent.type(await screen.findByLabelText("E-mail"), "user");
+
+        expect(
+          await screen.findByText(/Please enter a valid email address/)
+        ).toBeVisible();
+
+        await userEvent.type(await screen.findByLabelText("Password"), "1");
+
+        expect(
+          await screen.findByText(/Password must be at least 6 characters/)
+        ).toBeVisible();
+      });
+    });
+  });
 });
