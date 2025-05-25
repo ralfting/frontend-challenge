@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SignUpForm from "./features/user/SignUpForm";
 
 export default function App() {
