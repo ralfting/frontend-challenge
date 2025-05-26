@@ -20,6 +20,12 @@ describe('SignUpForm', () => {
   describe('Navigation', () => {
     describe('Next button', () => {
       it('navigates from User details to More info', async () => {
+        server.use(
+          rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+            return res(ctx.json([]));
+          })
+        );
+
         renderWithProviders(<SignUpForm />, {
           route: '/',
         });
@@ -45,7 +51,7 @@ describe('SignUpForm', () => {
         ).toBeVisible();
       });
 
-      it.only('navigates from More info to Confirmation', async () => {
+      it('navigates from More info to Confirmation', async () => {
         server.use(
           rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
             return res(ctx.json([]));
@@ -80,6 +86,12 @@ describe('SignUpForm', () => {
 
     describe('Back button', () => {
       it('navigates from Confirmation to More info', async () => {
+        server.use(
+          rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+            return res(ctx.json([]));
+          })
+        );
+
         renderWithProviders(<SignUpForm />, {
           route: '/confirmation',
         });
@@ -106,6 +118,12 @@ describe('SignUpForm', () => {
       });
 
       it('navigates from More info to User details', async () => {
+        server.use(
+          rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+            return res(ctx.json([]));
+          })
+        );
+
         renderWithProviders(<SignUpForm />, {
           route: '/more-info',
         });
@@ -154,6 +172,12 @@ describe('SignUpForm', () => {
 
     describe('more info', () => {
       it('shows message error for user details fields', async () => {
+        server.use(
+          rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+            return res(ctx.json([]));
+          })
+        );
+
         renderWithProviders(<SignUpForm />, { route: '/more-info' });
 
         await userEvent.click(
