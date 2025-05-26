@@ -12,7 +12,7 @@ export default function ReviewStep({ onNavigate }) {
       </Typography>
 
       <ul>
-        <li>First Name: {name || '----'}</li>
+        <li>Name: {name || '----'}</li>
         <li>E-mail: {email || '----'}</li>
         <li>Password: {password ? '******' : '----'}</li>
         <li>Favorite color: {color || '----'}</li>

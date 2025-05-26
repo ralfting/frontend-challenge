@@ -1,4 +1,4 @@
-import { Typography, Button, Stack, Box } from '@mui/material';
+import { Typography, Button, Stack } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
@@ -19,9 +19,13 @@ export default function Feedback({ onRestart, isSuccess, message }) {
         </Typography>
 
         {isSuccess ? (
-          <CheckCircleOutlineIcon fontSize="large" color="success" />
+          <CheckCircleOutlineIcon
+            aria-label="Check circle success icon"
+            fontSize="large"
+            color="success"
+          />
         ) : (
-          <ErrorOutlineIcon color="error" fontSize="large" />
+          <ErrorOutlineIcon aria-label="Error Outline icon" color="error" fontSize="large" />
         )}
 
         <Typography variant="body1" component="p" align="center" marginBottom={3} marginTop={3}>
