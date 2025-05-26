@@ -1,6 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from '@tanstack/react-query';
 
-const BASE_URL = "http://localhost:3001";
+const BASE_URL = 'http://localhost:3001';
 
 async function getColors() {
   const response = await fetch(`${BASE_URL}/api/colors`);
@@ -9,7 +9,7 @@ async function getColors() {
 
 export function useGetColors() {
   const { data, ...rest } = useQuery({
-    queryKey: ["colors"],
+    queryKey: ['colors'],
     queryFn: () => getColors(),
   });
 

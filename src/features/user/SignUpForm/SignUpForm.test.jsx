@@ -3,6 +3,7 @@ import userEvent from '@testing-library/user-event';
 
 import SignUpForm from './SignUpForm';
 import { renderWithProviders } from '../../../test/utils';
+import { server, rest } from '../../../test/server';
 
 describe('SignUpForm', () => {
   it('renders initial step page', async () => {
@@ -45,6 +46,12 @@ describe('SignUpForm', () => {
       });
 
       it.only('navigates from More info to Confirmation', async () => {
+        server.use(
+          rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+            return res(ctx.json([]));
+          })
+        );
+
         renderWithProviders(<SignUpForm />, {
           route: '/more-info',
         });
