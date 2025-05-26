@@ -6,6 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { ConfirmationStep, UserInfoStep, MoreInfoStep } from './steps';
 import { signupValidation } from './validations';
 import { useCreateUser } from '../../../services/users';
+import Feedback from '../../../components/FeedbackPage/Feedback';
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -30,8 +31,21 @@ export default function SignUpForm() {
 
   function handleSubmit() {
     const payload = methods.getValues();
-    console.log('here', payload);
-    createUser(payload);
+
+    createUser(payload, {
+      onSuccess: () => {
+        navigate('/success');
+      },
+      onError: (error) => {
+        console.log(error);
+        navigate('/error');
+      },
+    });
+  }
+
+  function handleRestart() {
+    methods.reset();
+    navigate('/');
   }
 
   return (
@@ -51,6 +65,26 @@ export default function SignUpForm() {
                   exact
                   path="confirmation"
                   element={<ConfirmationStep onNavigate={handleNavigation} />}
+                />
+                <Route
+                  path="/success"
+                  element={
+                    <Feedback
+                      isSuccess
+                      message="You should receive a confirmation email soon."
+                      onRestart={handleRestart}
+                    />
+                  }
+                />
+                <Route
+                  path="/error"
+                  element={
+                    <Feedback
+                      isSuccess={false}
+                      message="Uh oh. Something went wrong. Please try again."
+                      onRestart={handleRestart}
+                    />
+                  }
                 />
               </Routes>
             </FormProvider>
