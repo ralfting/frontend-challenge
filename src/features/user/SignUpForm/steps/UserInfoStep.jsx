@@ -1,5 +1,6 @@
-import { Box, Button, TextField, Typography } from '@mui/material';
+import { Box, Button, Stack, TextField, Typography } from '@mui/material';
 import { useFormContext, Controller } from 'react-hook-form';
+import PersonOutlinedAddIcon from '@mui/icons-material/PersonAddOutlined';
 
 export default function UserInfoStep({ onNavigate }) {
   const {
@@ -8,12 +9,19 @@ export default function UserInfoStep({ onNavigate }) {
   } = useFormContext();
 
   return (
-    <Box flexDirection="column" display="flex" gap="16px">
-      <Typography variant="h5" component="h2">
-        SignUp
+    <Stack>
+      <Typography
+        display="flex"
+        alignItems="center"
+        gap={1}
+        variant="h5"
+        component="h2"
+        marginBottom={3}
+      >
+        <PersonOutlinedAddIcon /> SignUp
       </Typography>
 
-      <Box>
+      <Stack gap={2} marginBottom={4}>
         <Controller
           name="name"
           control={control}
@@ -23,7 +31,6 @@ export default function UserInfoStep({ onNavigate }) {
               fullWidth
               id="name"
               label="First Name"
-              variant="standard"
               error={!!errors?.name}
               helperText={errors?.name?.message}
             />
@@ -39,7 +46,6 @@ export default function UserInfoStep({ onNavigate }) {
               fullWidth
               id="email"
               label="E-mail"
-              variant="standard"
               error={!!errors?.email}
               helperText={errors?.email?.message}
             />
@@ -56,16 +62,18 @@ export default function UserInfoStep({ onNavigate }) {
               type="password"
               id="password"
               label="Password"
-              variant="standard"
               error={!!errors?.password}
               helperText={errors?.password?.message}
             />
           )}
         />
+      </Stack>
+
+      <Box>
+        <Button type="button" variant="contained" onClick={() => onNavigate('/more-info')}>
+          Next
+        </Button>
       </Box>
-      <Button type="button" variant="contained" onClick={() => onNavigate('/more-info')}>
-        Next
-      </Button>
-    </Box>
+    </Stack>
   );
 }

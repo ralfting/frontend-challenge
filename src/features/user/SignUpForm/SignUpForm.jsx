@@ -1,4 +1,4 @@
-import { Box, Card, CardContent } from '@mui/material';
+import { Box } from '@mui/material';
 import { useForm, FormProvider } from 'react-hook-form';
 import { useNavigate, Route, Routes } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -11,7 +11,7 @@ import AlertFieldError from '../../../components/AlertFieldError/AlertFieldError
 
 export default function SignUpForm() {
   const navigate = useNavigate();
-  const { createUser } = useCreateUser();
+  const { createUser, isPending } = useCreateUser();
 
   function handleNavigation(path) {
     navigate(path);
@@ -51,50 +51,47 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={methods.handleSubmit(handleSubmit)} autoComplete="off">
-      <Box>
-        <Card>
-          <CardContent variant="outlined">
-            <FormProvider {...methods}>
-              <Routes>
-                <Route index element={<UserInfoStep onNavigate={handleNavigation} />} />
-                <Route
-                  exact
-                  path="more-info"
-                  element={<MoreInfoStep onNavigate={handleNavigation} />}
-                />
-                <Route
-                  exact
-                  path="confirmation"
-                  element={<ConfirmationStep onNavigate={handleNavigation} />}
-                />
-                <Route
-                  path="/success"
-                  element={
-                    <Feedback
-                      isSuccess
-                      message="You should receive a confirmation email soon."
-                      onRestart={handleRestart}
-                    />
-                  }
-                />
-                <Route
-                  path="/error"
-                  element={
-                    <Feedback
-                      isSuccess={false}
-                      message="Uh oh. Something went wrong. Please try again."
-                      onRestart={handleRestart}
-                    />
-                  }
-                />
-              </Routes>
+      <Box maxWidth="1200px" margin="0 auto" marginTop={4}>
+        <FormProvider {...methods}>
+          <Routes>
+            <Route index element={<UserInfoStep onNavigate={handleNavigation} />} />
+            <Route
+              exact
+              path="more-info"
+              element={<MoreInfoStep onNavigate={handleNavigation} />}
+            />
+            <Route
+              exact
+              path="confirmation"
+              element={<ConfirmationStep onNavigate={handleNavigation} isLoading={isPending} />}
+            />
 
-              <Box marginTop={2}>
-                <AlertFieldError errors={methods.formState?.errors} />
-              </Box>
-            </FormProvider>
-          </CardContent>
-        </Card>
+            <Route
+              path="/success"
+              element={
+                <Feedback
+                  isSuccess
+                  message="You should receive a confirmation email soon."
+                  onRestart={handleRestart}
+                />
+              }
+            />
+            <Route
+              path="/error"
+              element={
+                <Feedback
+                  isSuccess={false}
+                  message="Uh oh. Something went wrong. Please try again."
+                  onRestart={handleRestart}
+                />
+              }
+            />
+          </Routes>
+
+          <Box marginTop={2}>
+            <AlertFieldError errors={methods.formState?.errors} />
+          </Box>
+        </FormProvider>
       </Box>
     </form>
   );

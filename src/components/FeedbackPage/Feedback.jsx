@@ -4,7 +4,7 @@ import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
 export default function Feedback({ onRestart, isSuccess, message }) {
   return (
-    <Stack minHeight="90vh" alignItems="center" justifyContent="center">
+    <Stack minHeight="70vh" alignItems="center" justifyContent="center">
       <Stack>
         <Typography
           textTransform="uppercase"

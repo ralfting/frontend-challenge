@@ -1,5 +1,7 @@
 import { useFormContext, Controller } from 'react-hook-form';
 
+import InfoOutlineIcon from '@mui/icons-material/InfoOutline';
+
 import {
   Box,
   Button,
@@ -22,8 +24,8 @@ export default function MoreInfo({ onNavigate }) {
 
   return (
     <Box flexDirection="column" display="flex" gap="16px">
-      <Typography variant="h5" component="h2">
-        Aditional info
+      <Typography display="flex" alignItems="center" variant="h5" component="h2" gap={1}>
+        <InfoOutlineIcon /> Aditional info
       </Typography>
 
       <FormControl fullWidth error={!!formState.errors?.color}>
