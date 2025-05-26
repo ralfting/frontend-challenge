@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react';
+import { screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import SignUpForm from './SignUpForm';
@@ -195,5 +195,56 @@ describe('SignUpForm', () => {
         expect(await screen.findByText(/You need to check this options/)).toBeVisible();
       });
     });
+  });
+
+  it('shows confirmations values', async () => {
+    server.use(
+      rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+        return res(ctx.json(['red', 'blue']));
+      })
+    );
+
+    renderWithProviders(<SignUpForm />);
+
+    // fill user fields
+    await userEvent.type(await screen.findByLabelText('First Name'), 'John Doe');
+    await userEvent.type(await screen.findByLabelText('E-mail'), 'john@doe.com');
+    await userEvent.type(await screen.findByLabelText('Password'), '123456');
+
+    await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+    expect(
+      await screen.findByRole('heading', {
+        name: /Aditional info/i,
+        level: 2,
+      })
+    ).toBeVisible();
+
+    await waitFor(() => {
+      expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument();
+    });
+
+    // Fill more info
+    await waitFor(async () => {
+      await userEvent.click(screen.queryByRole('combobox'));
+      await userEvent.click(screen.queryByText('red'));
+    });
+
+    await userEvent.click(await screen.findByLabelText(/I agree with the terms and conditions/i));
+
+    await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+    expect(
+      await screen.findByRole('heading', {
+        name: /Confirmation/,
+        level: 2,
+      })
+    ).toBeVisible();
+
+    expect(await screen.findByText(/First Name: John Doe/i)).toBeVisible();
+    expect(await screen.findByText(/E-mail: john@doe.com/i)).toBeVisible();
+    expect(await screen.findByText(/Password: \*\*\*\*\*\*/i)).toBeVisible();
+    expect(await screen.findByText(/Favorite color: red/i)).toBeVisible();
+    expect(await screen.findByText(/Terms and condition: Agreed/i)).toBeVisible();
   });
 });

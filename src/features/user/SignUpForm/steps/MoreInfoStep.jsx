@@ -85,12 +85,7 @@ export default function MoreInfo({ onNavigate }) {
         <Button variant="outlined" type="button" onClick={() => onNavigate('/')}>
           Back
         </Button>
-        <Button
-          disabled={isLoading}
-          variant="contained"
-          type="button"
-          onClick={() => onNavigate('/confirmation')}
-        >
+        <Button variant="contained" type="button" onClick={() => onNavigate('/confirmation')}>
           Next
         </Button>
       </Box>
