@@ -14,8 +14,8 @@ describe('AlertFieldError', () => {
     render(<AlertFieldError errors={errors} />);
 
     expect(await screen.findByText(/Some fields need your attention/)).toBeVisible();
-    expect(await screen.findByText(/Name cannot be empty/)).toBeVisible();
-    expect(await screen.findByText(/E-mail cannot be empty/)).toBeVisible();
+    expect(await screen.findByText(/name/)).toBeVisible();
+    expect(await screen.findByText(/email/)).toBeVisible();
   });
 
   it('does not show alert component if no error', async () => {

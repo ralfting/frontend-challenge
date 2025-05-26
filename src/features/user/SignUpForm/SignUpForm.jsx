@@ -37,8 +37,7 @@ export default function SignUpForm() {
       onSuccess: () => {
         navigate('/success');
       },
-      onError: (error) => {
-        console.log(error);
+      onError: () => {
         navigate('/error');
       },
     });

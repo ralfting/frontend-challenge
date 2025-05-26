@@ -8,10 +8,8 @@ export default function AlertFieldError({ errors }) {
       <AlertTitle>Some fields need your attention</AlertTitle>
 
       <ul>
-        {Object.entries(errors).map(([field, error]) => (
-          <li key={field}>
-            <b>{field}</b>: {error.message}
-          </li>
+        {Object.entries(errors).map(([field]) => (
+          <li key={field}>{field}</li>
         ))}
       </ul>
     </Alert>

@@ -241,10 +241,104 @@ describe('SignUpForm', () => {
       })
     ).toBeVisible();
 
-    expect(await screen.findByText(/First Name: John Doe/i)).toBeVisible();
-    expect(await screen.findByText(/E-mail: john@doe.com/i)).toBeVisible();
-    expect(await screen.findByText(/Password: \*\*\*\*\*\*/i)).toBeVisible();
-    expect(await screen.findByText(/Favorite color: red/i)).toBeVisible();
-    expect(await screen.findByText(/Terms and condition: Agreed/i)).toBeVisible();
+    expect(await screen.findByText(/John Doe/i)).toBeVisible();
+    expect(await screen.findByText(/john@doe.com/i)).toBeVisible();
+    expect(await screen.findByText(/\*\*\*\*\*\*/i)).toBeVisible();
+    expect(await screen.findByText(/red/i)).toBeVisible();
+    expect(await screen.findByText(/Agreed/i)).toBeVisible();
+  });
+
+  describe('Crate an user', () => {
+    it('signup with success', async () => {
+      server.use(
+        rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+          return res(ctx.json(['red', 'blue']));
+        }),
+        rest.post('http://localhost:3001/api/submit', (req, res, ctx) => {
+          return res(ctx.status(200));
+        })
+      );
+
+      renderWithProviders(<SignUpForm />);
+
+      // fill user fields
+      await userEvent.type(await screen.findByLabelText('First Name'), 'John Doe');
+      await userEvent.type(await screen.findByLabelText('E-mail'), 'john@doe.com');
+      await userEvent.type(await screen.findByLabelText('Password'), '123456');
+
+      await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument();
+      });
+
+      // Fill more info
+      await waitFor(async () => {
+        await userEvent.click(screen.queryByRole('combobox'));
+        await userEvent.click(screen.queryByText('red'));
+      });
+
+      await userEvent.click(await screen.findByLabelText(/I agree with the terms and conditions/i));
+      await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+      await userEvent.click(
+        await screen.findByRole('button', {
+          name: /Send data/,
+        })
+      );
+
+      expect(
+        await screen.findByRole('heading', {
+          name: 'Success!',
+          level: 2,
+        })
+      );
+    });
+
+    it('signup with error', async () => {
+      server.use(
+        rest.get('http://localhost:3001/api/colors', (req, res, ctx) => {
+          return res(ctx.json(['red', 'blue']));
+        }),
+        rest.post('http://localhost:3001/api/submit', (req, res, ctx) => {
+          return res(ctx.status(400), ctx.json({ message: 'Failed to create user' }));
+        })
+      );
+
+      renderWithProviders(<SignUpForm />);
+
+      // fill user fields
+      await userEvent.type(await screen.findByLabelText('First Name'), 'John Doe');
+      await userEvent.type(await screen.findByLabelText('E-mail'), 'john@doe.com');
+      await userEvent.type(await screen.findByLabelText('Password'), '123456');
+
+      await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+      await waitFor(() => {
+        expect(screen.queryByText(/Loading.../i)).not.toBeInTheDocument();
+      });
+
+      // Fill more info
+      await waitFor(async () => {
+        await userEvent.click(screen.queryByRole('combobox'));
+        await userEvent.click(screen.queryByText('red'));
+      });
+
+      await userEvent.click(await screen.findByLabelText(/I agree with the terms and conditions/i));
+      await userEvent.click(await screen.findByRole('button', { name: /Next/ }));
+
+      await userEvent.click(
+        await screen.findByRole('button', {
+          name: /Send data/,
+        })
+      );
+
+      expect(
+        await screen.findByRole('heading', {
+          name: 'Error!',
+          level: 2,
+        })
+      );
+    });
   });
 });

@@ -3,7 +3,6 @@ import { useFormContext } from 'react-hook-form';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 
 export default function ReviewStep({ onNavigate, isLoading }) {
-  console.log(isLoading);
   const { watch } = useFormContext();
   const { name, email, password, color, terms } = watch();
 
