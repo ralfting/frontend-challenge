@@ -27,7 +27,7 @@ export default function MoreInfo({ onNavigate }) {
       </Typography>
 
       <FormControl fullWidth error={!!formState.errors?.color}>
-        <InputLabel>Select a favorite color</InputLabel>
+        <InputLabel htmlFor="color">Select a favorite color</InputLabel>
         <Controller
           name="color"
           control={control}
@@ -35,6 +35,9 @@ export default function MoreInfo({ onNavigate }) {
             <Select
               label="Select a favorite color"
               disabled={isLoading}
+              inputProps={{
+                id: 'color',
+              }}
               startAdornment={
                 isLoading ? (
                   <Box display="flex" alignItems="center" gap={1}>

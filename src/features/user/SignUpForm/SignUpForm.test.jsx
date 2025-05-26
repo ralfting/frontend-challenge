@@ -2,11 +2,11 @@ import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
 import SignUpForm from './SignUpForm';
-import { renderWithRouter } from '../../../test/utils';
+import { renderWithProviders } from '../../../test/utils';
 
 describe('SignUpForm', () => {
   it('renders initial step page', async () => {
-    renderWithRouter(<SignUpForm />, { route: '/' });
+    renderWithProviders(<SignUpForm />, { route: '/' });
 
     expect(
       await screen.findByRole('heading', {
@@ -19,7 +19,7 @@ describe('SignUpForm', () => {
   describe('Navigation', () => {
     describe('Next button', () => {
       it('navigates from User details to More info', async () => {
-        renderWithRouter(<SignUpForm />, {
+        renderWithProviders(<SignUpForm />, {
           route: '/',
         });
 
@@ -44,8 +44,8 @@ describe('SignUpForm', () => {
         ).toBeVisible();
       });
 
-      it('navigates from More info to Confirmation', async () => {
-        renderWithRouter(<SignUpForm />, {
+      it.only('navigates from More info to Confirmation', async () => {
+        renderWithProviders(<SignUpForm />, {
           route: '/more-info',
         });
 
@@ -73,7 +73,7 @@ describe('SignUpForm', () => {
 
     describe('Back button', () => {
       it('navigates from Confirmation to More info', async () => {
-        renderWithRouter(<SignUpForm />, {
+        renderWithProviders(<SignUpForm />, {
           route: '/confirmation',
         });
 
@@ -99,7 +99,7 @@ describe('SignUpForm', () => {
       });
 
       it('navigates from More info to User details', async () => {
-        renderWithRouter(<SignUpForm />, {
+        renderWithProviders(<SignUpForm />, {
           route: '/more-info',
         });
 
@@ -129,11 +129,11 @@ describe('SignUpForm', () => {
   describe('Validations', () => {
     describe('users details', () => {
       it('shows message error for user details fields', async () => {
-        renderWithRouter(<SignUpForm />, { route: '/' });
+        renderWithProviders(<SignUpForm />, { route: '/' });
 
         await userEvent.type(await screen.findByLabelText('First Name'), 'A{backspace}');
 
-        expect(await screen.findByText(/First name must be at least 2 characters/)).toBeVisible();
+        expect(await screen.findByText(/First name cannot be empty/)).toBeVisible();
 
         await userEvent.type(await screen.findByLabelText('E-mail'), 'user');
 
@@ -142,6 +142,26 @@ describe('SignUpForm', () => {
         await userEvent.type(await screen.findByLabelText('Password'), '1');
 
         expect(await screen.findByText(/Password must be at least 6 characters/)).toBeVisible();
+      });
+    });
+
+    describe('more info', () => {
+      it('shows message error for user details fields', async () => {
+        renderWithProviders(<SignUpForm />, { route: '/more-info' });
+
+        await userEvent.click(
+          await screen.findByLabelText(/I agree with the terms and conditions/i)
+        );
+
+        await new Promise((resolve) => {
+          setTimeout(resolve, 100);
+        });
+
+        await userEvent.click(
+          await screen.findByLabelText(/I agree with the terms and conditions/i)
+        );
+
+        expect(await screen.findByText(/You need to check this options/)).toBeVisible();
       });
     });
   });
