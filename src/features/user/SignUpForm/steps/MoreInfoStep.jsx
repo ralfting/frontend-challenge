@@ -71,7 +71,7 @@ export default function MoreInfo({ onNavigate }) {
             <FormControlLabel
               label={
                 <p>
-                  I agree with the <Link href="#">terms and conditions</Link>
+                  I agree with the <Link href="#terms">terms and conditions</Link>
                 </p>
               }
               control={<Checkbox {...field} checked={!!field.value} />}

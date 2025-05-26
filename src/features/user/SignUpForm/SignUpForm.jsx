@@ -5,9 +5,11 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ConfirmationStep, UserInfoStep, MoreInfoStep } from './steps';
 import { signupValidation } from './validations';
+import { useCreateUser } from '../../../services/users';
 
 export default function SignUpForm() {
   const navigate = useNavigate();
+  const { createUser } = useCreateUser();
 
   function handleNavigation(path) {
     navigate(path);
@@ -18,7 +20,7 @@ export default function SignUpForm() {
     reValidateMode: 'onChange',
     mode: 'onChange',
     defaultValues: {
-      firstname: '',
+      name: '',
       email: '',
       password: '',
       color: '',
@@ -27,7 +29,9 @@ export default function SignUpForm() {
   });
 
   function handleSubmit() {
-    console.log('submitted!');
+    const payload = methods.getValues();
+    console.log('here', payload);
+    createUser(payload);
   }
 
   return (

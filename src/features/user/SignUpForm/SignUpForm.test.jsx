@@ -158,7 +158,7 @@ describe('SignUpForm', () => {
 
         await userEvent.type(await screen.findByLabelText('First Name'), 'A{backspace}');
 
-        expect(await screen.findByText(/First name cannot be empty/)).toBeVisible();
+        expect(await screen.findByText(/Name cannot be empty/)).toBeVisible();
 
         await userEvent.type(await screen.findByLabelText('E-mail'), 'user');
 

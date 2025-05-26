@@ -15,17 +15,17 @@ export default function UserInfoStep({ onNavigate }) {
 
       <Box>
         <Controller
-          name="firstname"
+          name="name"
           control={control}
           render={({ field }) => (
             <TextField
               {...field}
               fullWidth
-              id="firstname"
+              id="name"
               label="First Name"
               variant="standard"
-              error={!!errors?.firstname}
-              helperText={errors?.firstname?.message}
+              error={!!errors?.name}
+              helperText={errors?.name?.message}
             />
           )}
         />
