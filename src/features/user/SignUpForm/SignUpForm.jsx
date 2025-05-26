@@ -1,10 +1,10 @@
-import { Box, Card, CardContent } from "@mui/material";
-import { useForm, FormProvider } from "react-hook-form";
-import { useNavigate, Route, Routes } from "react-router-dom";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { Box, Card, CardContent } from '@mui/material';
+import { useForm, FormProvider } from 'react-hook-form';
+import { useNavigate, Route, Routes } from 'react-router-dom';
+import { zodResolver } from '@hookform/resolvers/zod';
 
-import { ConfirmationStep, UserInfoStep, MoreInfoStep } from "./steps";
-import { signupValidation } from "./validations";
+import { ConfirmationStep, UserInfoStep, MoreInfoStep } from './steps';
+import { signupValidation } from './validations';
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -15,12 +15,19 @@ export default function SignUpForm() {
 
   const methods = useForm({
     resolver: zodResolver(signupValidation),
-    reValidateMode: "onChange",
-    mode: "onChange",
+    reValidateMode: 'onChange',
+    mode: 'onChange',
+    defaultValues: {
+      firstname: '',
+      email: '',
+      password: '',
+      color: '',
+      terms: false,
+    },
   });
 
   function handleSubmit() {
-    console.log("submitted!");
+    console.log('submitted!');
   }
 
   return (
@@ -30,10 +37,7 @@ export default function SignUpForm() {
           <CardContent variant="outlined">
             <FormProvider {...methods}>
               <Routes>
-                <Route
-                  index
-                  element={<UserInfoStep onNavigate={handleNavigation} />}
-                />
+                <Route index element={<UserInfoStep onNavigate={handleNavigation} />} />
                 <Route
                   exact
                   path="more-info"

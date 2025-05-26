@@ -1,4 +1,4 @@
-import { Typography } from "@mui/material";
+import { Typography } from '@mui/material';
 
 export default function ReviewStep({ onNavigate }) {
   return (
@@ -7,7 +7,7 @@ export default function ReviewStep({ onNavigate }) {
         Confirmation
       </Typography>
 
-      <button onClick={() => onNavigate("/more-info")}>Back</button>
+      <button onClick={() => onNavigate('/more-info')}>Back</button>
       <button type="submit">Send</button>
     </>
   );

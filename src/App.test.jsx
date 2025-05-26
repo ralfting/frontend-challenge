@@ -1,18 +1,18 @@
-import App from "./App";
+import App from './App';
 
-import { render, screen } from "@testing-library/react";
+import { render, screen } from '@testing-library/react';
 
-describe("App", () => {
-  it("renders without crashing", async () => {
+describe('App', () => {
+  it('renders without crashing', async () => {
     render(<App />);
 
     expect(
-      await screen.findByRole("heading", {
-        name: "Welcome to Upgrade challenge",
+      await screen.findByRole('heading', {
+        name: 'Welcome to Upgrade challenge',
         level: 1,
       })
     );
 
-    expect(await screen.findByRole("button")).toBeDisabled();
+    expect(await screen.findByRole('button')).toBeDisabled();
   });
 });

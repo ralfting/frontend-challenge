@@ -1,12 +1,18 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
-import SignUpForm from "./features/user/SignUpForm";
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import SignUpForm from './features/user/SignUpForm';
+
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
 
 export default function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/*" element={<SignUpForm />} />
-      </Routes>
-    </BrowserRouter>
+    <QueryClientProvider client={queryClient}>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/*" element={<SignUpForm />} />
+        </Routes>
+      </BrowserRouter>
+    </QueryClientProvider>
   );
 }
