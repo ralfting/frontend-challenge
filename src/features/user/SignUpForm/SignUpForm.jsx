@@ -7,6 +7,7 @@ import { ConfirmationStep, UserInfoStep, MoreInfoStep } from './steps';
 import { signupValidation } from './validations';
 import { useCreateUser } from '../../../services/users';
 import Feedback from '../../../components/FeedbackPage/Feedback';
+import AlertFieldError from '../../../components/AlertFieldError/AlertFieldError';
 
 export default function SignUpForm() {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ export default function SignUpForm() {
   }
 
   return (
-    <form onSubmit={methods.handleSubmit(handleSubmit)}>
+    <form onSubmit={methods.handleSubmit(handleSubmit)} autoComplete="off">
       <Box>
         <Card>
           <CardContent variant="outlined">
@@ -87,6 +88,10 @@ export default function SignUpForm() {
                   }
                 />
               </Routes>
+
+              <Box marginTop={2}>
+                <AlertFieldError errors={methods.formState?.errors} />
+              </Box>
             </FormProvider>
           </CardContent>
         </Card>
