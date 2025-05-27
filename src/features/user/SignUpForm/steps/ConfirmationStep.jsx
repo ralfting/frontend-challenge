@@ -47,7 +47,12 @@ export default function ReviewStep({ onNavigate, isLoading }) {
       </Box>
 
       <Box display="inline-flex" gap={1}>
-        <Button variant="outlined" type="button" onClick={() => onNavigate('/more-info')}>
+        <Button
+          variant="outlined"
+          type="button"
+          onClick={() => onNavigate('/more-info')}
+          disabled={isLoading}
+        >
           Back
         </Button>
 
