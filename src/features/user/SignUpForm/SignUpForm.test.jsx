@@ -192,7 +192,9 @@ describe('SignUpForm', () => {
           await screen.findByLabelText(/I agree with the terms and conditions/i)
         );
 
-        expect(await screen.findByText(/You need to check this options/)).toBeVisible();
+        expect(
+          await screen.findByText(/Acceptance of the terms and conditions is required/)
+        ).toBeVisible();
       });
     });
   });

@@ -9,7 +9,6 @@ import {
   CircularProgress,
   FormControl,
   FormControlLabel,
-  FormHelperText,
   InputLabel,
   MenuItem,
   Select,
@@ -90,7 +89,7 @@ export default function MoreInfo({ onNavigate }) {
           />
           {formState.errors?.terms && (
             <Typography color="error" variant="caption">
-              You need to accept the terms and conditions.
+              Acceptance of the terms and conditions is required
             </Typography>
           )}
         </FormControl>

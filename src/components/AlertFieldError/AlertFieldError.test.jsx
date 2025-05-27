@@ -5,7 +5,7 @@ describe('AlertFieldError', () => {
   it('shows errors from props', async () => {
     const errors = {
       name: {
-        message: 'Name cannot be empty',
+        message: 'First Name cannot be empty',
       },
       email: {
         message: 'E-mail cannot be empty',

@@ -26,7 +26,7 @@ export default function ReviewStep({ onNavigate, isLoading }) {
       <Box marginBottom={3}>
         <List>
           <ListItem disablePadding>
-            <ListItemText primary="Name:" secondary={name || '----'} />
+            <ListItemText primary="First name:" secondary={name || '----'} />
           </ListItem>
           <ListItem disablePadding>
             <ListItemText primary="E-mail:" secondary={email || '----'} />

@@ -1,6 +1,7 @@
+import { useEffect } from 'react';
 import { Box } from '@mui/material';
 import { useForm, FormProvider } from 'react-hook-form';
-import { useNavigate, Route, Routes } from 'react-router-dom';
+import { useNavigate, useLocation, Route, Routes } from 'react-router-dom';
 import { zodResolver } from '@hookform/resolvers/zod';
 
 import { ConfirmationStep, UserInfoStep, MoreInfoStep } from './steps';
@@ -10,6 +11,7 @@ import Feedback from '../../../components/FeedbackPage/Feedback';
 import AlertFieldError from '../../../components/AlertFieldError/AlertFieldError';
 
 export default function SignUpForm() {
+  const location = useLocation();
   const navigate = useNavigate();
   const { createUser, isPending } = useCreateUser();
 
@@ -47,6 +49,12 @@ export default function SignUpForm() {
     methods.reset();
     navigate('/');
   }
+
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'test' && location.pathname !== '/') {
+      navigate('/');
+    }
+  }, []);
 
   return (
     <form onSubmit={methods.handleSubmit(handleSubmit)} autoComplete="off">
