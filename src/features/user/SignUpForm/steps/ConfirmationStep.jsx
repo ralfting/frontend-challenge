@@ -8,29 +8,45 @@ export default function ReviewStep({ onNavigate, isLoading }) {
 
   return (
     <>
-      <Typography display="flex" alignItems="center" variant="h5" component="h2" gap={1}>
+      <Typography
+        display="flex"
+        alignItems="center"
+        variant="h5"
+        component="h2"
+        gap={1}
+        marginBottom={1}
+      >
         <CheckCircleOutlineIcon variant="" /> Confirmation
       </Typography>
 
-      <List>
-        <ListItem disablePadding>
-          <ListItemText primary="Name:" secondary={name || '----'} />
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemText primary="E-mail:" secondary={email || '----'} />
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemText primary="Password:" secondary={password ? '******' : '----'} />
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemText primary="Favorite color:" secondary={color || '----'} />
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemText primary="Terms and conditions:" secondary={terms ? 'Agreed' : 'Pending'} />
-        </ListItem>
-      </List>
+      <Typography variant="body2" marginBottom={2}>
+        Please confirm your data before send.
+      </Typography>
 
-      <Box display="inline-flex" gap={1} marginTop={3}>
+      <Box marginBottom={3}>
+        <List>
+          <ListItem disablePadding>
+            <ListItemText primary="Name:" secondary={name || '----'} />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText primary="E-mail:" secondary={email || '----'} />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText primary="Password:" secondary={password ? '******' : '----'} />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText primary="Favorite color:" secondary={color || '----'} />
+          </ListItem>
+          <ListItem disablePadding>
+            <ListItemText
+              primary="Terms and conditions:"
+              secondary={terms ? 'Agreed' : 'Pending'}
+            />
+          </ListItem>
+        </List>
+      </Box>
+
+      <Box display="inline-flex" gap={1}>
         <Button variant="outlined" type="button" onClick={() => onNavigate('/more-info')}>
           Back
         </Button>

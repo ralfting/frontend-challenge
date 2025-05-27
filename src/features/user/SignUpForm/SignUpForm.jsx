@@ -50,7 +50,7 @@ export default function SignUpForm() {
 
   return (
     <form onSubmit={methods.handleSubmit(handleSubmit)} autoComplete="off">
-      <Box maxWidth="1200px" margin="0 auto" marginTop={4}>
+      <Box maxWidth="800px" margin="0 auto" marginTop={4}>
         <FormProvider {...methods}>
           <Routes>
             <Route index element={<UserInfoStep onNavigate={handleNavigation} />} />

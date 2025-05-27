@@ -9,7 +9,7 @@ export default function UserInfoStep({ onNavigate }) {
   } = useFormContext();
 
   return (
-    <Stack>
+    <Box>
       <Typography
         display="flex"
         alignItems="center"
@@ -74,6 +74,6 @@ export default function UserInfoStep({ onNavigate }) {
           Next
         </Button>
       </Box>
-    </Stack>
+    </Box>
   );
 }
